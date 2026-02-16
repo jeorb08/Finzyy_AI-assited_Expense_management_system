@@ -1,1 +1,1 @@
-# Finzyy-AI-assited-Expense-management-system
+# Finzyy_AI-assited_Expense_management_system
