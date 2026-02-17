@@ -125,3 +125,32 @@
         @apply bg-background text-foreground;
     }
 }
+
+
+/* 1st module dashboard */
+
+
+/* add custom gradient class for dashboard */
+
+@layer utilities {
+    .gradient {
+        @apply bg-gradient-to-br from-purple-600 via-blue-500 to-cyan-400;
+    }
+    .gradient-title {
+        @apply font-extrabold tracking-tighter pr-2 pb-2 text-transparent bg-clip-text;
+    }
+}
+
+.hero-image-wrapper {
+    perspective: 1000;
+}
+
+.hero-image {
+    transform: rotateX(15deg) scale(1);
+    transition: transform 0.5s ease-out;
+    will-change: transform;
+}
+
+.hero-image.scrolled {
+    transform: rotateX(0deg) scale(1) translateY(40px);
+}
