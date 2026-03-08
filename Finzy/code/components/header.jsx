@@ -6,10 +6,11 @@ import { Button } from "./ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
 import { checkUser } from "@/lib/checkUser";
 
-const Header = async () => {
-  await checkUser();
+const Header = async() => {
+  // check user form lib.checkuser.js file/ database check
+await checkUser();
   return (
-    <div className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b">
+    <div className="fixed top-0 w-full bg-white/93 backdrop-blur-md z-50 border-b">
       {/* Create Navigation bar */}
       <nav className="container mx-auto px-6 py-4 h-20 flex items-center justify-between">
         <Link href="/">

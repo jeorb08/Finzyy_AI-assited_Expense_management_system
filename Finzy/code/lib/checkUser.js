@@ -9,20 +9,18 @@ export const checkUser = async () => {
   }
 
   try {
-    const loggedInUser = await db.user.findUnique({
+    const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`;
+
+    const loggedInUser = await db.user.upsert({
       where: {
         clerkUserId: user.id,
       },
-    });
-
-    if (loggedInUser) {
-      return loggedInUser;
-    }
-
-    const name = `${user.firstName} ${user.lastName}`;
-
-    const newUser = await db.user.create({
-      data: {
+      update: {
+        name,
+        imageUrl: user.imageUrl,
+        email: user.emailAddresses[0].emailAddress,
+      },
+      create: {
         clerkUserId: user.id,
         name,
         imageUrl: user.imageUrl,
@@ -30,8 +28,9 @@ export const checkUser = async () => {
       },
     });
 
-    return newUser;
+    return loggedInUser;
   } catch (error) {
-    console.log(error.message);
+    console.log("User check error:", error.message);
+    return null;
   }
 };
