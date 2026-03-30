@@ -67,7 +67,7 @@ const TransactionTable = ({ transactions }) => {
   // next push used
 
   // use funciton for deletation multiple select then delete button show
-
+  const [selectedIds, setSelectedIds] = useState([]);
   // this is for sorting
   const [sortConfig, setSortConfig] = useState({
     field: "date",
@@ -78,6 +78,13 @@ const TransactionTable = ({ transactions }) => {
   const [typeFilter, setTypeFilter] = useState("");
   const [recurringFilter, setRecurringFilter] = useState("");
 
+  // bulk delete
+  const {
+    loading:deleteLoading,
+    fn:deleteFn,
+    data:deleted,
+
+  }=useFetch(bulkDeleteTransactions);
 
 
   const filterAndSortTransactions = useMemo(()=>{
@@ -157,9 +164,20 @@ const TransactionTable = ({ transactions }) => {
 
   // Bulk Deletation
   
-
+  const handleBulkDelete= async()=>{
+    if(!window.confirm(
+            `Hey! Are you Sure you want to delete ${selectedIds.length} transactions?`)
+          ){
+return;
+    }
+   deleteFn(selectedIds); 
+  };
   
-
+ useEffect(()=>{
+    if(deleted && !deleteLoading){
+      toast.error("Transactions deleted successfully");
+    }
+  },[deleted,deleteLoading]);
   // handle filters clear
   const handleClearFilters=()=>{
     setSearchTerm("");
@@ -215,6 +233,14 @@ const TransactionTable = ({ transactions }) => {
 
           {/* show the delete button */}
           {/* Bulk deletation */}
+          {selectedIds.length>0 && (
+            <div className="flex items-center gap-2">
+            <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
+              <Trash className="h-4 w-4 mr-2"/>
+              Delete Selected({selectedIds.length})
+            </Button>
+            </div>
+          )}
           
 
           {(searchTerm|| typeFilter|| recurringFilter)&&(
@@ -384,7 +410,12 @@ const TransactionTable = ({ transactions }) => {
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                           {/* also start from here */}
-
+<DropdownMenuLabel
+                            className="text-destructive cursor-pointer"
+                             onClick={()=>deleteFn([transaction.id])} // this is for bulk deletation
+                          >
+                            Delete
+                          </DropdownMenuLabel>
                           
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
