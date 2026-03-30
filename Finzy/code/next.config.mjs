@@ -7,6 +7,12 @@ const nextConfig = {
             hostname: 'randomuser.me',
         }, ],
     },
+    // this part for add receipts scanning
+    experimental: {
+        serverActions: {
+            bodySizeLimit: "5mb",
+        },
+    },
 };
 
 export default nextConfig;
