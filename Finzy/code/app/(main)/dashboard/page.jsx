@@ -13,7 +13,10 @@ async function DashboardPage(){
     {/* Budget Progress */}
 
     {/* Dashboard Overview */}
-
+     <DashboardOverview
+        accounts={accounts}
+        transactions={transactions || []}
+      />
     {/*Account Create */}
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
     <CreateAccountDrawer>
