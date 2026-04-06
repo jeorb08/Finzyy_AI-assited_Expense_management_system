@@ -117,25 +117,41 @@ const BudgetProgress = ({ initialBudget, currentExpenses }) => {
           </div>
         </div>
 
-        <CardAction>Card Action</CardAction>
+        <CardAction>
+          <span
+            className="text-xl font-medium"
+            style={{
+              fontFamily: "'Dancing Script', cursive", // ✅ signature font
+              background: "linear-gradient(90deg, #6366F1, #22C55E)", // ✅ gradient text
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              letterSpacing: "0.5px",
+            }}
+          >
+            Percentage counter
+          </span>
+        </CardAction>
       </CardHeader>
       <CardContent>
         {/* show the progress bar */}
-        {initialBudget && 
-        <div className="space-y-2">
-            <Progress value={percentUsed}
+        {initialBudget && (
+          <div className="space-y-2">
+            <Progress
+              value={percentUsed}
               extraStyles={`${
                 // add to Progress component
                 percentUsed >= 90
                   ? "bg-red-500"
                   : percentUsed >= 75
-                  ? "bg-yellow-500"
-                  : "bg-green-500"
-              }`}/>
-              <p className="text-xs text-muted-foreground text-right">
+                    ? "bg-yellow-500"
+                    : "bg-green-500"
+              }`}
+            />
+            <p className="text-xs text-muted-foreground text-right">
               {percentUsed.toFixed(1)}% used
             </p>
-            </div>}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
